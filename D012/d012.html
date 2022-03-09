@@ -4,37 +4,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens</title>
+    <title>Preço mudou</title>
 
     <style>
+        div
+        {
+            font: normal 17px arial;
+        }
         input
         {
-            width: 100px;
-            height: 60px;
+            font: normal 15px arial;
+            width: 200px;
+            height: 50px;
         }
     </style>
 
 </head>
 <body>
 
-    <h1>Desafio das mensagens</h1>
-    <input type="button" value="Botão 1" onclick = "b1()" id="b1">
-    <input type="button" value="Botão 2" onclick = "b2()" id="b2">
-    <input type="button" value="Botão 3" onclick = "b3()" id="b3">
-    <div id="res"></div>
-    
+    <header>
+        <h1>Preço mudou</h1>
+    </header>
+
+    <div>
+        <input type="button" value="Verificar" onclick="verificar()">
+    </div>
+
+    <div id = "res">
+        <p>Clique no botão acima para analisar a mudança de preço.</p>
+    </div>
+
     <script>
-        function b1()
+        function verificar()
         {
-            window.alert('Você clicou no 1º botão!')
-        }
-        function b2()
-        {
-            window.alert('Você clicou no 2º botão!')
-        }
-        function b3()
-        {
-            window.alert('Você clicou no 3º botão!')
+            var ant = Number(window.prompt("Qual era o preço anterior do produto?"))
+            var atual = Number(window.prompt("Qual é o preço atual do produto?"))
+            var res = document.getElementById("res")
+
+            res.innerHTML = ("<h2>Analisando os valores informados</h2>")
+            res.innerHTML += (`<p>O produto custava ${ant.toLocaleString("pt-BR", {style: 'currency', currency: "BRL"})} e agora custa ${atual.toLocaleString("pt-BR", {style: 'currency', currency: "BRL"})}.</p>`)
+
+            if(atual > ant)
+            {
+                var aum = atual - ant
+                var per = (atual - ant) / ant * 100
+
+                res.innerHTML += ("<p>Hoje o produto está mais caro.</p>")
+                res.innerHTML += (`<p>O preço subiu ${aum.toLocaleString("pt-BR", {style: 'currency', currency: "BRL"})} em relação ao preço anterior.</p>`)
+                res.innerHTML += (`<p>Uma variação de ${per.toLocaleString("pt-BR")}% pra cima.</p>`)
+            }
+            else
+            {
+                var caiu = ant - atual
+                var per = (ant - atual) / ant * 100
+
+                res.innerHTML += (`<p>Hoje o produto está mais barato.</p>`)
+                res.innerHTML += (`O preço caiu ${caiu.toLocaleString("pt-BR", {style: 'currency', currency: "BRL"})} em relação ao preço anterior.`)
+                res.innerHTML += (`<p>Uma variação de ${per.toLocaleString("pt-BR")}% pra baixo.</p>`)
+            }
+
         }
     </script>
     
